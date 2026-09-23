@@ -3,6 +3,8 @@ import TodoCounter from './Componets/TodoCounter/TodoCounter.jsx'
 import AccionesAlumno from './Componets/AccionesAlumno/AccionesAlumno.jsx'
 import Contador from './Componets/Contador/Contador.jsx'
 import Alumno from './Componets/Alumno/Alumno.jsx'
+import ClienteList from './Componets/ClienteList/ClienteList.jsx'
+
 
 export default function App() {
   return (
@@ -12,6 +14,7 @@ export default function App() {
       <Alumno alumno="Juan Perez" curso="Ingeniería de Software II" anio={2024} />
       <AccionesAlumno />
       <Contador />
+      <ClienteList />
     </>
   )
 }
