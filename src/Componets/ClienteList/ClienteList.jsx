@@ -1,6 +1,7 @@
 import Cliente from "../Cliente/Cliente";
 import React from "react";
 import useClientesApi from "../../Hooks/useClientesApi"; 
+import { CircularProgress } from "@mui/material";
 
 export default function ClienteList() {
   const { clientes, cargando, error, eliminarCliente } = useClientesApi();
@@ -8,7 +9,7 @@ export default function ClienteList() {
   return (
 
     <div>
-      {cargando && <p>Cargando clientes...</p>}
+      {cargando && <CircularProgress />}
       {error && <p>Error al cargar clientes</p>}
       {!cargando && !error && (
         <ul>
