@@ -6,6 +6,7 @@ export default function useClientesApi() {
   const [clientes, setClientes] = useState([]);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState(null);
+  const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
 
   const obtenerClientes = useCallback(async () => {
     setCargando(true);
@@ -106,5 +107,7 @@ export default function useClientesApi() {
     crearCliente,
     actualizarCliente,
     eliminarCliente,
+    clienteSeleccionado,
+    setClienteSeleccionado
   };
 }
