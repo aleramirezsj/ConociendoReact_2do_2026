@@ -5,7 +5,9 @@ import { Button, Card, CardHeader, CardContent, CardActions } from "@mui/materia
 export default function Cliente({ cliente, 
                                   onEliminar,
                                   onSeleccionar,
-                                  onModificar}) {
+                                  onModificar,
+                                  mostrarEliminados,
+                                  onRestaurar}) {
   const Swal2 = withReactContent(Swal);
   const configuracionVentana = {
     title: '¿Estás seguro?',
@@ -37,18 +39,27 @@ export default function Cliente({ cliente,
         <p>Dirección: {cliente.address}</p>
       </CardContent>
       <CardActions>
-        <Button variant="contained" color="primary" onClick={() => {
-          onSeleccionar(cliente);
-          onModificar(true);
-        }}>
-          Modificar Cliente
-        </Button>
+        {mostrarEliminados ? (
+          <Button variant="contained" color="primary" onClick={() => onRestaurar(cliente.id)}>
+            Restaurar Cliente
+          </Button>
+        ) : (
+          <>
+            <Button variant="contained" color="primary" onClick={() => {
+              onSeleccionar(cliente);
+              onModificar(true);
+            }}>
+              Modificar Cliente
+            </Button>
 
-        <Button variant="contained" color="error" onClick={() => onEliminarAdvertencia(cliente.id)}>
-          Eliminar Cliente
-        </Button>
+            <Button variant="contained" color="error" onClick={() => onEliminarAdvertencia(cliente.id)}>
+              Eliminar Cliente
+            </Button>
+          </>
+        )}
       </CardActions>
     </Card>
   );
 }
+ 
     

@@ -12,10 +12,13 @@ export default function ClienteList() {
           crearCliente,
           clienteSeleccionado,
           setClienteSeleccionado,
-          actualizarCliente
+          actualizarCliente,
+          obtenerClientes,
+          obtenerClientesEliminados,
+          restaurarCliente
          } = useClientesApi();
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
-
+  const [mostrarEliminados, setMostrarEliminados] = useState(false);
 
   return (
 
@@ -82,6 +85,16 @@ export default function ClienteList() {
             setMostrarFormulario(true)}}>
             Agregar Cliente
           </Button>
+          <Button variant="contained" color="secondary" onClick={async () => {
+              setMostrarEliminados(!mostrarEliminados)
+              if(mostrarEliminados) {
+                await obtenerClientes();
+              } else {
+                await obtenerClientesEliminados();
+              } 
+            }}>
+            {mostrarEliminados ? "Ver Activos" : "Ver Eliminados"}
+          </Button>
           {clientes.map((cliente) => (
             <li key={cliente.id}>
               <Cliente
@@ -89,6 +102,8 @@ export default function ClienteList() {
                 onEliminar={eliminarCliente}
                 onSeleccionar={setClienteSeleccionado}
                 onModificar={setMostrarFormulario}
+                mostrarEliminados={mostrarEliminados}
+                onRestaurar={restaurarCliente}
               />
             </li>
           ))}

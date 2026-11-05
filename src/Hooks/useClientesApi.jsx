@@ -24,6 +24,22 @@ export default function useClientesApi() {
     }
   }, []);
 
+  const obtenerClientesEliminados = useCallback(async () => {
+    setCargando(true);
+    setError(null);
+    try {
+      const respuesta = await fetch(URL_BASE+"/deleteds");
+      if (!respuesta.ok) throw new Error("Error al obtener los clientes eliminados");
+      const datos = await respuesta.json();
+      setClientes(datos);
+      return datos;
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setCargando(false);
+    }
+  }, []);
+
   const obtenerClientePorId = useCallback(async (id) => {
     setCargando(true);
     setError(null);
@@ -94,6 +110,22 @@ export default function useClientesApi() {
     }
   }, []);
 
+  const restaurarCliente = useCallback(async (id) => {
+    setCargando(true);
+    setError(null);
+    try {
+      const respuesta = await fetch(`${URL_BASE}/restore/${id}`, {
+        method: "PUT",
+      });
+      if (!respuesta.ok) throw new Error("Error al restaurar el cliente");
+      setClientes((clientesActuales) => clientesActuales.filter((c) => c.id !== id));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setCargando(false);
+    }
+  }, []);
+
   useEffect(() => {
     obtenerClientes();
   }, [obtenerClientes]);
@@ -103,11 +135,13 @@ export default function useClientesApi() {
     cargando,
     error,
     obtenerClientes,
+    obtenerClientesEliminados,
     obtenerClientePorId,
     crearCliente,
     actualizarCliente,
     eliminarCliente,
     clienteSeleccionado,
-    setClienteSeleccionado
+    setClienteSeleccionado,
+    restaurarCliente
   };
 }
